@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title><%= process.env.APP_NAME %></title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="https://themewagon.github.io/fruitables/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="https://themewagon.github.io/fruitables/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="https://themewagon.github.io/fruitables/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="https://themewagon.github.io/fruitables/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" role="status"></div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Navbar start -->
+        <div class="container-fluid fixed-top">
+            <div class="container topbar bg-primary d-none d-lg-block">
+                <div class="d-flex justify-content-between">
+                    <div class="top-info ps-2">
+                        <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small>
+                        <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
+                    </div>
+                    <div class="top-link pe-2">
+                        <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
+                        <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
+                        <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-0">
+                <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                    <a href="/" class="navbar-brand">
+                        <h1 class="text-primary display-6">BRM</h1>
+                    </a>
+                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-primary"></span>
+                    </button>
+                    <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto">
+                            <a href="/" class="nav-item nav-link">Inicio</a>
+                            <a href="/shop" class="nav-item nav-link">Comprar</a>
+                        </div>
+                        <div class="d-flex m-3 me-0">
+                            <a href="/cart" class="position-relative me-4 my-auto">
+                                <i class="fa fa-shopping-bag fa-2x"></i>
+                                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">{{ products.length }}</span>
+                            </a>
+                            <a href="javascript:void(0)" class="my-auto">
+                                <i class="fas fa-user fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Navbar End -->
+
+        <!-- Login Start -->
+        <div class="container-fluid position-relative py-5" style="margin-top: 115px;">
+            <div class="container py-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-12">
+                        <section class="row">
+                            <div class="container-fluid h-custom">
+                                <div class="row d-flex justify-content-center align-items-center h-100">
+                                    <div class="col-md-9 col-lg-6 col-xl-5">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Sample image">
+                                    </div>
+                                    <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                                        <form>
+                                            <!-- Email input -->
+                                            <div class="form-outline mb-4">
+                                                <input type="email" id="form3Example3" class="form-control form-control-lg"
+                                                placeholder="Ingresa un correo electrónico válido" v-model="email" />
+                                                <label class="form-label" for="form3Example3">Correo electróncio</label>
+                                            </div>
+                          
+                                            <!-- Password input -->
+                                            <div class="form-outline mb-3">
+                                                <input type="password" id="form3Example4" class="form-control form-control-lg" placeholder="Ingresa la contraseña" v-model="password" />
+                                                <label class="form-label" for="form3Example4">Contraseña</label>
+                                            </div>
+                          
+                                            <div class="text-center text-lg-start mt-4 pt-2">
+                                                <button type="button" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;" @click="login()">Iniciar sesión</button>
+                                                <p class="small fw-bold mt-2 pt-1 mb-0">¿No tienes una cuenta?
+                                                    <a href="/register" class="link-danger">Regístrate</a>
+                                                </p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Login End -->
+
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+                    </div>
+                    <div class="col-md-6 my-auto text-center text-md-end text-white">
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://themewagon.github.io/fruitables/lib/easing/easing.min.js"></script>
+    <script src="https://themewagon.github.io/fruitables/lib/waypoints/waypoints.min.js"></script>
+    <script src="https://themewagon.github.io/fruitables/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="https://themewagon.github.io/fruitables/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="https://themewagon.github.io/fruitables/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                products: [],
+                email: '',
+                password: ''
+            },
+            methods: {
+                login: function () {
+                    if (this.email && this.password) {
+                        Swal.fire({
+                            title: 'Cargando...',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            showConfirmButton: false,
+                            willOpen: () => Swal.showLoading()
+                        });
+                        axios.post('/api/auth/login', {
+                            email: this.email,
+                            password: this.password
+                        })
+                        .then((res) => {
+                            Swal.close();
+
+                            const { authToken } = res.data;
+                            localStorage.setItem('authToken', authToken);
+
+                            window.location = '/profile';
+                        })
+                        .catch((err) => {
+                            Swal.fire(err.response.data.message, '', 'error');
+                        });
+                    }
+                }
+            },
+            mounted() {
+                const products = JSON.parse(localStorage.getItem('cart'));
+                const authToken = localStorage.getItem('authToken');
+                if (authToken) {
+                    window.location = '/profile';
+                }
+                this.products = products || [];
+            }
+        });
+    </script>
+</body>
+</html>

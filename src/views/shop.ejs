@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>BRM Prueba técnica</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="https://themewagon.github.io/fruitables/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="https://themewagon.github.io/fruitables/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="https://themewagon.github.io/fruitables/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="https://themewagon.github.io/fruitables/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" role="status"></div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Navbar start -->
+        <div class="container-fluid fixed-top">
+            <div class="container topbar bg-primary d-none d-lg-block">
+                <div class="d-flex justify-content-between">
+                    <div class="top-info ps-2">
+                        <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small>
+                        <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
+                    </div>
+                    <div class="top-link pe-2">
+                        <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
+                        <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
+                        <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-0">
+                <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                    <a href="/" class="navbar-brand">
+                        <h1 class="text-primary display-6">BRM</h1>
+                    </a>
+                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-primary"></span>
+                    </button>
+                    <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto">
+                            <a href="/" class="nav-item nav-link">Inicio</a>
+                            <a href="javascript:void(0)" class="nav-item nav-link active">Comprar</a>
+                        </div>
+                        <div class="d-flex m-3 me-0">
+                            <a href="/cart" class="position-relative me-4 my-auto">
+                                <i class="fa fa-shopping-bag fa-2x"></i>
+                                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">{{ products.length }}</span>
+                            </a>
+                            <a href="/profile" class="my-auto">
+                                <i class="fas fa-user fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Navbar End -->
+
+        <!-- Single Page Header start -->
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Comprar</h1>
+        </div>
+        <!-- Single Page Header End -->
+
+        <!-- Fruits Shop Start-->
+        <div class="container-fluid fruite py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-12">
+                        <div class="row g-4">
+                            <div class="col-12" v-if="query">
+                                <button type="button" class="btn btn-primary" @click="removeQuery()">
+                                    {{ query }}
+                                    <span class="badge badge-light">
+                                        <i class="fa fa-window-close"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row g-4 justify-content-center" v-if="productsList.data?.length > 0">
+                                    <div class="col-md-6 col-lg-6 col-xl-4" v-for="product in productsList.data">
+                                        <div class="rounded position-relative fruite-item">
+                                            <div class="fruite-img">
+                                                <img src="" class="img-fluid w-100 rounded-top" alt="">
+                                            </div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" v-if="product.quantity <= 0">Agotado</div>
+
+                                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" v-if="inCart(product)">Producto añadido</div>
+
+                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                <h4>{{ product.name }}</h4>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                                    <p class="text-dark fs-5 fw-bold mb-0">$ {{ new Intl.NumberFormat('es-CO').format(product.price) }}</p>
+
+                                                    <button type="button" class="btn border border-secondary rounded-pill px-3 text-primary" @click="addToCart(product)" v-if="product.quantity > 0" v-bind:disabled="inCart(product)">
+                                                        <i class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                        Añadir al carrito
+                                                    </button>
+                                                    <button class="btn border border-secondary rounded-pill px-3 text-primary" disabled v-else>
+                                                        <i class="fa fa-ban me-2 text-primary"></i>
+                                                        Agotado
+                                                    </button>
+                                                </div>
+                                                <span v-if="product.quantity > 0">{{ 
+                                                    inCart(product) 
+                                                        ? 'Controla la cantidad a comprar en el carrito'
+                                                        : `Puedes añadir un máximo de ${product.quantity < 10 ? product.quantity : 10}  productos`
+                                                }}</span>
+                                                <span v-else>Este producto se encuentra agotado</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="pagination d-flex justify-content-center mt-5" v-if="productsList.totalPages > 1">
+                                            <a href="javascript:void(0);" class="rounded" v-if="productsList.page > 1" v-on:click="getProducts(productsList.page - 1)">&laquo;</a>
+                                            <a href="javascript:void(0);" class="rounded" v-bind:class="item == productsList.page ? 'active' : ''" v-for="item in productsList.totalPages" v-on:click="getProducts(item)">{{ item }}</a>
+                                            <a href="javascript:void(0);" class="rounded" v-if="productsList.page < productsList.totalPages" v-on:click="getProducts(productsList.page + 1)">&raquo;</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4 justify-content-center" v-else>
+                                    <h1 class="text-center">No hay resultados</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fruits Shop End-->
+
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+                    </div>
+                    <div class="col-md-6 my-auto text-center text-md-end text-white">
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+    </div>
+    
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://themewagon.github.io/fruitables/lib/easing/easing.min.js"></script>
+    <script src="https://themewagon.github.io/fruitables/lib/waypoints/waypoints.min.js"></script>
+    <script src="https://themewagon.github.io/fruitables/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="https://themewagon.github.io/fruitables/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="https://themewagon.github.io/fruitables/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                products: [],
+                productsList: {},
+                query: null
+            },
+            methods: {
+                getProducts: function (page = null) {
+                    axios.get(`/api/products?page=${page != null ? page : 1}${this.query != null ? '&query=' + this.query : ''}`)
+                    .then((res) => {
+                        this.productsList = res.data;
+                    });
+                },
+
+                addToCart: function (product) {
+                    const index = this.products.findIndex(v => v.id == product.id);
+                    if (index < 0) {
+                        product.requiredQuantity = 1;
+                        this.products.push(product);
+                    } else {
+                        this.products[index].requiredQuantity += 1;
+                    }
+
+                    localStorage.removeItem('cart');
+                    localStorage.setItem('cart', JSON.stringify(this.products));
+
+                    Swal.fire({
+                        title: 'Producto añadido',
+                        icon: 'success',
+                        confirmButtonText: 'Ir al carrito',
+                        cancelButtonText: 'Seguir comprando',
+                        showCancelButton: true,
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location = '/cart';
+                        }
+                    });
+                },
+
+                removeQuery: function () {
+                    window.location = '/shop';
+                },
+
+                inCart: function (product) {
+                    const index = this.products.findIndex(v => v.id == product.id);
+                    return index > -1;
+                }
+            },
+            mounted() {
+                const products = JSON.parse(localStorage.getItem('cart'));
+                this.products = products || [];
+                this.query = new URLSearchParams(window.location.search).get('query') || null;
+                this.getProducts();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Node.js
+node_modules/
+
+# Archivos de configuración
+.env
+
+# Archivos de configuración de editor
+.vscode/
+.idea/
+
+# Archivos de usuario específicos
+.DS_Store
+Thumbs.db
+
+# APIDoc
+doc/

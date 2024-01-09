@@ -1,0 +1,560 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>BRM Prueba técnica</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="https://themewagon.github.io/fruitables/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="https://themewagon.github.io/fruitables/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="https://themewagon.github.io/fruitables/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="https://themewagon.github.io/fruitables/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" role="status"></div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Navbar start -->
+        <div class="container-fluid fixed-top">
+            <div class="container topbar bg-primary d-none d-lg-block">
+                <div class="d-flex justify-content-between">
+                    <div class="top-info ps-2">
+                        <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small>
+                        <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
+                    </div>
+                    <div class="top-link pe-2">
+                        <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
+                        <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
+                        <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-0">
+                <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                    <a href="/" class="navbar-brand">
+                        <h1 class="text-primary display-6">BRM</h1>
+                    </a>
+                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-primary"></span>
+                    </button>
+                    <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto">
+                            <a href="/" class="nav-item nav-link">Inicio</a>
+                            <a href="/shop" class="nav-item nav-link">Comprar</a>
+                        </div>
+                        <div class="d-flex m-3 me-0">
+                            <a href="/cart" class="position-relative me-4 my-auto">
+                                <i class="fa fa-shopping-bag fa-2x"></i>
+                                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">{{ products.length }}</span>
+                            </a>
+                            <a href="#" class="my-auto">
+                                <i class="fas fa-user fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Navbar End -->
+
+        <!-- Single Page Header start -->
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Perfil</h1>
+        </div>
+        <!-- Single Page Header End -->
+
+        <!-- Fruits Shop Start-->
+        <div class="container-fluid fruite py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-12">
+                        <div class="row g-4">
+                            <div class="col-lg-12">
+                                <div class="row g-4 justify-content-center">
+                                    <div class="container emp-profile">
+                                        <form method="post">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="profile-img text-center">
+                                                        <img src="https://freesvg.org/img/abstract-user-flat-4.png" alt="" class="w-50 rounded rounded-circle" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <div class="profile-head">
+                                                        <h5>{{ user.username }}</h5>
+                                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Perfil</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mis compras</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" id="products-tab" data-toggle="tab" href="#products" role="tab" aria-controls="products" aria-selected="false" @click="getProductsHistory()">Historial de productos comprados</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" id="password-tab" data-toggle="tab" href="#password" role="tab" aria-controls="products" aria-selected="false">Cambiar contraseña</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="profile-work">
+                                                        <ul>
+                                                            <li v-if="user.role == 'Admin'">
+                                                                <a href="/admin">
+                                                                    Acceso Administrador
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="javascript:void()" @click="logOut()">
+                                                                    Cerrar sesión
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <div class="tab-content profile-tab" id="myTabContent">
+                                                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Username</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{ user.username }}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Correo electróncio</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{ user.email }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                                            <div class="container py-5 text-center" v-if="purchases.data?.length == 0">
+                                                                <h3 class="text-center">No hay compras realizadas</h3>
+                                                                <a href="/shop" class="btn btn-success">Comprar ahora</a>
+                                                            </div>
+                                                            <div class="container py-5" v-else>
+                                                                <div class="table-responsive">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col">Fecha</th>
+                                                                                <th scope="col">Cantidad de productos</th>
+                                                                                <th scope="col">Total</th>
+                                                                                <th scope="col">Acciones</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr v-for="(purchase, index) in purchases.data">
+                                                                                <td>
+                                                                                    <p class="mb-0 mt-2">{{ formatDate(purchase.createdAt) }}</p>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p class="mb-0 mt-2">{{ purchase.productQuantity }}</p>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p class="mb-0 mt-2">$ {{ new Intl.NumberFormat('es-CO').format(purchase.totalPrice) }}</p>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button type="button" class="btn btn-success mb-0" @click="getPurchase(purchase)">Ver factura</button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
+                                                                <div class="col-12">
+                                                                    <div class="pagination d-flex justify-content-center mt-5" v-if="purchases.totalPages > 1">
+                                                                        <a href="javascript:void(0);" class="rounded" v-if="purchases.page > 1" v-on:click="getProfile(purchases.page - 1)">&laquo;</a>
+                                                                        <a href="javascript:void(0);" class="rounded" v-bind:class="item == purchases.page ? 'active' : ''" v-for="item in purchases.totalPages" v-on:click="getProfile(item)">{{ item }}</a>
+                                                                        <a href="javascript:void(0);" class="rounded" v-if="purchases.page < purchases.totalPages" v-on:click="getProfile(purchases.page + 1)">&raquo;</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab">
+                                                            <div class="container py-5 text-center" v-if="productsList.length == 0">
+                                                                <h3 class="text-center">No hay productos comprados</h3>
+                                                                <a href="/shop" class="btn btn-success">Comprar ahora</a>
+                                                            </div>
+                                                            <div class="container py-5" v-else>
+                                                                <div class="table-responsive">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col">Producto</th>
+                                                                                <th scope="col">Cantidad</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr v-for="(product, index) in productsList">
+                                                                                <td>
+                                                                                    <p class="mb-0 mt-2">{{ product.name }}</p>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p class="mb-0 mt-2">{{ product.quantity }}</p>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                                                            <div class="container py-5">
+                                                                <form>
+                                                                    <div class="form-group">
+                                                                        <label for="currentPassword">Contraseña actual</label>
+                                                                        <input type="password" id="currentPassword" class="form-control" v-model="currentPassword" required />
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="password">Contraseña nueva</label>
+                                                                        <input type="password" id="password" class="form-control" v-model="password" required />
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="newPassword">Repertir contraseña nueva</label>
+                                                                        <input type="password" id="newPassword" class="form-control" v-model="newPassword" required />
+                                                                    </div>
+
+                                                                    <button type="button" class="btn btn-success mt-2" v-bind:disabled="!currentPassword || !password || !newPassword" @click="changePassword()">Cambiar contraseña</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>           
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fruits Shop End-->
+
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+                    </div>
+                    <div class="col-md-6 my-auto text-center text-md-end text-white">
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="invoiceModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="container mb-5 mt-3">
+                                <div class="row d-flex align-items-baseline">
+                                    <div class="col-xl-9">
+                                        <p style="color: #7e8d9f;font-size: 20px;">
+                                            Invoice >> <strong>ID: #{{ purchase.id }}</strong>
+                                        </p>
+                                    </div>
+                                    <hr>
+                                </div>
+                            
+                                <div class="container">
+                                    <div class="col-md-12">
+                                        <div class="text-center">
+                                            <span class="ms-0" style="color:#5d9fc5 ;">BRM</span>
+                                            <p class="pt-0">brm.com.co</p>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="row">
+                                        <div class="col-xl-4">
+                                            <ul class="list-unstyled">
+                                                <li class="text-muted">Cliente: <span style="color:#5d9fc5 ;">{{ user.username }}</span></li>
+                                                <li class="text-muted">Street, City</li>
+                                                <li class="text-muted">
+                                                    <i class="fas fa-phone"></i> 123-456-789
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xl-8">
+                                            <ul class="list-unstyled">
+                                                <li class="text-muted">
+                                                    <i class="fas fa-circle" style="color:#84B0CA ;"></i>
+                                                    <span class="fw-bold">ID:</span>
+                                                    #{{ purchase.id }}
+                                                </li>
+                                                <li class="text-muted">
+                                                    <i class="fas fa-circle" style="color:#84B0CA ;"></i>
+                                                    <span class="fw-bold">Fecha de compra: </span>
+                                                    {{ formatDate(purchase.createdAt) }}
+                                                </li>
+                                                <li class="text-muted">
+                                                    <i class="fas fa-circle" style="color:#84B0CA ;"></i>
+                                                    <span class="me-1 fw-bold">Estado:</span>
+                                                    <span class="badge bg-success text-black fw-bold">Pagado</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="row my-2 mx-1 justify-content-center">
+                                        <table class="table table-striped table-borderless">
+                                            <thead style="background-color:#84B0CA ;" class="text-white">
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Producto</th>
+                                                    <th scope="col">Cantidad</th>
+                                                    <th scope="col">Precio unitario</th>
+                                                    <th scope="col">Valor total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="(product, index) in purchase.Products">
+                                                    <th scope="row">{{ index + 1 }}</th>
+                                                    <td>{{ product.name }}</td>
+                                                    <td>{{ product.ProductPurchases.quantity }}</td>
+                                                    <td>$ {{ new Intl.NumberFormat('es-CO').format(product.ProductPurchases.unitValue) }}</td>
+                                                    <td>$ {{ new Intl.NumberFormat('es-CO').format(product.ProductPurchases.unitValue * product.ProductPurchases.quantity) }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            
+                                    <div class="row">
+                                        <div class="col-xl-7">
+                                            <p class="ms-3">No hay información adicional</p>
+                                        </div>
+                                        <div class="col-xl-5">
+                                            <ul class="list-unstyled">
+                                                <li class="text-muted ms-3">
+                                                    <span class="text-black me-4">Sub Total</span>
+                                                    $ {{ new Intl.NumberFormat('es-CO').format(purchase.totalPrice - 10000) }}
+                                                </li>
+                                                <li class="text-muted ms-3 mt-2">
+                                                    <span class="text-black me-4">Envío</span>
+                                                    $ 10.000
+                                                </li>
+                                            </ul>
+                                            <p class="text-black float-start">
+                                                <span class="text-black me-3">Valor total</span>
+                                                <span style="font-size: 25px;">$ {{ new Intl.NumberFormat('es-CO').format(purchase.totalPrice) }}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                            
+                                    <div class="row">
+                                        <div class="col-xl-8">
+                                            <p>Gracias por comprar con nosotros</p>
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <a href="/shop" class="btn btn-primary text-capitalize" style="background-color:#60bdf3 ;">Comprar de nuevo</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://themewagon.github.io/fruitables/lib/easing/easing.min.js"></script>
+    <script src="https://themewagon.github.io/fruitables/lib/waypoints/waypoints.min.js"></script>
+    <script src="https://themewagon.github.io/fruitables/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="https://themewagon.github.io/fruitables/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="https://themewagon.github.io/fruitables/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/locale/es-mx.min.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                products: [],
+                productsList: [],
+                authToken: null,
+                user: {},
+                purchases: {},
+                purchase: {},
+                currentPassword: '',
+                password: '',
+                newPassword: ''
+            },
+            methods: {                
+                getProfile: function (page = null) {
+                    axios.get(`/api/profile?page=${page != null ? page : 1}`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`
+                        }
+                    })
+                    .then((res) => {
+                        this.user = res.data.user;
+                        this.purchases = res.data.purchases;
+                    })
+                    .catch((err) => {
+                        if (err.response.status == 401) {
+                            localStorage.removeItem('authToken');
+                            Swal.fire({
+                                title: 'Inicia sesión nuevamente'
+                            })
+                            .then((confirm) => {
+                                if (confirm.isConfirmed) {
+                                    window.location = '/login';
+                                }
+                            });
+                        }
+                    });
+                },
+
+                formatDate: function (date) {
+                    return moment(date).format('LLLL');
+                },
+
+                getPurchase: function (purchase) {
+                    axios.get(`/api/purchases/${purchase.id}`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`
+                        }
+                    })
+                        .then((res) => {
+                            this.purchase = res.data;
+                            $('#invoiceModal').modal('show');
+                        });
+                },
+
+                getProductsHistory: function () {
+                    axios.get('/api/products/history', {
+                        headers: {
+                            'Authorization': `Bearer ${this.authToken}`
+                        }
+                    })
+                    .then((res) => {
+                        this.productsList = res.data;
+                    })
+                },
+
+                changePassword: function () {
+                    if (this.currentPassword && this.password && this.newPassword) {
+                        axios.patch('/api/auth/changePassword', {
+                            currentPassword: this.currentPassword, 
+                            password: this.password,
+                            confirmPassword: this.newPassword
+                        }, {
+                            headers: {
+                                'Authorization': `Bearer ${this.authToken}`
+                            }
+                        })
+                        .then((res) => {
+                            this.currentPassword = '';
+                            this.password = '';
+                            this.newPassword = '';
+                            Swal.fire(res.data.message, '', 'success');
+                        })
+                        .catch((err) => {
+                            const { errors } = err.response.data;
+                            let html = '<ul>';
+                            for (error in errors) {
+                                errors[error].map((v) => html += `<li class="text-danger">${v}</li>`);
+                            }
+                            html += '</ul>';
+                            Swal.fire({
+                                title: err.response.data.message,
+                                html: html,
+                                icon: 'error'
+                            });
+                        });
+                    }
+                },
+
+                logOut: function () {
+                    localStorage.removeItem('authToken');
+                    this.authToken = null;
+                    window.location = '/login';
+                }
+            },
+            mounted() {
+                moment().locale('es');
+
+                const authToken = localStorage.getItem('authToken');
+                if (!authToken) {
+                    window.location = '/login';
+                } else {
+                    this.authToken = authToken;
+                    const products = JSON.parse(localStorage.getItem('cart'));
+                    this.products = products || [];
+                    this.getProfile();
+
+                    if (this.products.length > 0) {
+                        Swal.fire({
+                            title: 'Tienes productos en el carrito',
+                            text: '¿Quieres finalizar la compra?',
+                            showCancelButton: true,
+                            showDenyButton: true,
+                            confirmButtonText: 'Finalizar compra',
+                            denyButtonText: 'Añadir productos',
+                            cancelButtonText: 'Cerrar',
+                            reverseButtons: true,
+                            confirmButtonColor: '#198754',
+                            denyButtonColor: '#FFB524'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location = '/cart';
+                            } else if (result.isDenied) {
+                                window.location = '/shop';
+                            }
+                        });
+                    }
+                }                
+            }
+        });
+    </script>
+</body>
+</html>
